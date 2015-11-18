@@ -29,7 +29,7 @@ def if_boxed_get_line_numbers_of_box_start_and_end():
     if not vim.current.line.startswith(comment_start_str + ' '):
         return None # not a comment, hence not part of a box
     # line was a comment, but not necessarily a box
-    box_border = comment_start_str + ' ' + '#' * number_free_chars
+    box_border = comment_start_str + ' ' + '-' * number_free_chars
     # determine whether there is a border line above
     row_border_above = None
     for i in range(1,row):
@@ -75,10 +75,10 @@ def box_lines(row, prefix): # box will contain line(s) starting at row
     if row + prefix - 1 > initial_number_of_lines: # special case at file end
         prefix = initial_number_of_lines - row + 1
     if row <= 1: # insert line at beginning, as buf.append() function can't do it
-        this_buffer[0:0] = ['#' * number_free_chars]
+        this_buffer[0:0] = ['-' * number_free_chars]
     else:
-        this_buffer.append('#' * number_free_chars, row - 2)
-    this_buffer.append('#' * number_free_chars, row - 1 + prefix)
+        this_buffer.append('-' * number_free_chars, row - 2)
+    this_buffer.append('-' * number_free_chars, row - 1 + prefix)
     vim.command(':' + str(row) + ',' + str(row + 1 + prefix) + 'Commentary')
     # handle special case that comments on empty strings don't work
     for i in range(prefix):
