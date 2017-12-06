@@ -3,7 +3,7 @@
 " see github pages for all information regarding vim-commentary-boxed
 
 function! ToggleBox()
-  if has('python') && exists('g:loaded_commentary')
+  if has('python')
     if !exists("*PythonToggleBox")
       function PythonToggleBox()
 python << EOF
@@ -12,6 +12,17 @@ prefix = int(vim.eval('v:count1'))
 this_buffer = vim.current.buffer
 (row,col) = vim.current.window.cursor # row is 1 for first line
 initial_number_of_lines = len(this_buffer)
+
+current_line = vim.current.line
+current_line_without_indent = current_line.strip()
+first_char_in_line = current_line_without_indent[0]
+first_char_col = current_line.find(first_char_in_line)
+indent = current_line[:first_char_col]
+text_width = int(vim.eval("&tw"))
+text_line_length = text_width - first_char_col
+this_buffer.append(indent + text_line_length * '#', row)
+this_buffer.append(indent + text_line_length * '#', row - 1)
+this_buffer[row] = indent + '#' + current_line_without_indent.center(text_line_length - 2) + '#'
 
 def get_comment_information():
     # create a test line (9 chars) at the buffer end and comment it out
@@ -87,8 +98,9 @@ def box_lines(row, prefix): # box will contain line(s) starting at row
             this_buffer[row + i] = comment_start_str + ' ' + line
     vim.current.window.cursor = (row + 1, col + len(comment_start_str) + 1)
 
-get_comment_information()
-result = if_boxed_get_line_numbers_of_box_start_and_end()
+# get_comment_information()
+# result = if_boxed_get_line_numbers_of_box_start_and_end()
+result = None
 if result is not None: # unbox
     (box_begins_at, box_ends_at) = result
     vim.command(':' + str(box_begins_at) + ',' + str(box_ends_at) + 'Commentary')
@@ -99,7 +111,8 @@ if result is not None: # unbox
     if box_ends_at - cur_row - 1 == 0: # unboxing at bottom border
         vim.current.window.cursor = (cur_row - 1, 0)
 else: # box line(s)
-    box_lines(row, prefix)
+    # box_lines(row, prefix)
+    pass
 EOF
       endfunction
     endif
