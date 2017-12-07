@@ -2,12 +2,23 @@
 " extends tpope's vim-commentary plugin to create boxed elements
 " see github pages for all information regarding vim-commentary-boxed
 
+let g:plugin_path = expand('<sfile>:p:h')
+
 function! ToggleBox()
   if has('python')
     if !exists("*PythonToggleBox")
       function PythonToggleBox()
 python << EOF
 import vim
+import os
+import sys
+
+# https://robertbasic.com/blog/import-custom-python-modules-in-vim-plugins/
+plugin_path = vim.eval("g:plugin_path")
+python_module_path = os.path.abspath(os.path.join(plugin_path, "..", "lib"))
+sys.path.append(python_module_path)
+import commentbox
+
 prefix = int(vim.eval('v:count1'))
 this_buffer = vim.current.buffer
 (row,col) = vim.current.window.cursor # row is 1 for first line
