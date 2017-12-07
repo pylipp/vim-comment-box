@@ -17,7 +17,7 @@ import sys
 plugin_path = vim.eval("g:plugin_path")
 python_module_path = os.path.abspath(os.path.join(plugin_path, "..", "lib"))
 sys.path.append(python_module_path)
-import commentbox
+from commentbox import put_text_in_box
 
 prefix = int(vim.eval('v:count1'))
 this_buffer = vim.current.buffer
@@ -25,15 +25,11 @@ this_buffer = vim.current.buffer
 initial_number_of_lines = len(this_buffer)
 
 current_line = vim.current.line
-current_line_without_indent = current_line.strip()
-first_char_in_line = current_line_without_indent[0]
-first_char_col = current_line.find(first_char_in_line)
-indent = current_line[:first_char_col]
 text_width = int(vim.eval("&tw"))
-text_line_length = text_width - first_char_col
-this_buffer.append(indent + text_line_length * '#', row)
-this_buffer.append(indent + text_line_length * '#', row - 1)
-this_buffer[row] = indent + '#' + current_line_without_indent.center(text_line_length - 2) + '#'
+first_line, text_line, last_line = put_text_in_box(current_line, text_width)
+this_buffer.append(last_line, row)
+this_buffer.append(first_line, row - 1)
+this_buffer[row] = text_line
 
 def get_comment_information():
     # create a test line (9 chars) at the buffer end and comment it out
