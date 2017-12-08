@@ -72,11 +72,11 @@ class TestPutTextInBox(unittest.TestCase):
 
     def test_line_with_indent(self):
         buffer = TestBuffer("  class Foo")
-        put_text_in_box(buffer, 1, 17, comment_char='-')
+        put_text_in_box(buffer, 1, 17, filetype='vim')
         expected = TestBuffer(
-            "  ---------------",
-            "  -  class Foo  -",
-            "  ---------------",
+            '  """""""""""""""',
+            '  "  class Foo  "',
+            '  """""""""""""""',
         )
         self.assertEqual(buffer, expected)
 

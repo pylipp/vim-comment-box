@@ -25,7 +25,8 @@ this_buffer = vim.current.buffer
 initial_number_of_lines = len(this_buffer)
 
 text_width = int(vim.eval("&tw"))
-put_text_in_box(this_buffer, row, text_width, count=prefix)
+filetype = vim.eval("&ft")
+put_text_in_box(this_buffer, row, text_width, count=prefix, filetype=filetype)
 
 def get_comment_information():
     # create a test line (9 chars) at the buffer end and comment it out
