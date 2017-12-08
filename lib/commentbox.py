@@ -19,3 +19,12 @@ def create_box_elements(line, text_width, comment_char=None):
             text_line_length_without_comment_chars) + comment_char,
         indent + text_line_length * comment_char,
     ]
+
+
+def put_text_in_box(buffer, row, text_width, comment_char=None):
+    """Put the text at line `row` in the `buffer` into a comment box."""
+    first_line, text_line, last_line = create_box_elements(
+        buffer[row], text_width, comment_char=comment_char)
+    buffer.append(last_line, row)
+    buffer.append(first_line, row - 1)
+    buffer[row] = text_line
