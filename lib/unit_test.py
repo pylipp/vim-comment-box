@@ -1,9 +1,9 @@
 import unittest
 
-from commentbox import put_text_in_box
+from commentbox import create_box_elements
 
 
-class TestPutTextInBox(unittest.TestCase):
+class TestCreateBoxElements(unittest.TestCase):
 
     def test_line_without_indent(self):
         line = "test line"
@@ -12,7 +12,17 @@ class TestPutTextInBox(unittest.TestCase):
             "# test line #",
             "#############",
         ]
-        actual = put_text_in_box(line, 13)
+        actual = create_box_elements(line, 13)
+        self.assertListEqual(expected, actual)
+
+    def test_line_with_indent(self):
+        line = "    some code  "
+        expected = [
+            "    ##############",
+            "    # some code  #",
+            "    ##############",
+        ]
+        actual = create_box_elements(line, 18)
         self.assertListEqual(expected, actual)
 
 if __name__ == "__main__":

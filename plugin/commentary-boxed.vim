@@ -17,7 +17,7 @@ import sys
 plugin_path = vim.eval("g:plugin_path")
 python_module_path = os.path.abspath(os.path.join(plugin_path, "..", "lib"))
 sys.path.append(python_module_path)
-from commentbox import put_text_in_box
+from commentbox import create_box_elements
 
 prefix = int(vim.eval('v:count1'))
 this_buffer = vim.current.buffer
@@ -26,7 +26,7 @@ initial_number_of_lines = len(this_buffer)
 
 current_line = vim.current.line
 text_width = int(vim.eval("&tw"))
-first_line, text_line, last_line = put_text_in_box(current_line, text_width)
+first_line, text_line, last_line = create_box_elements(current_line, text_width)
 this_buffer.append(last_line, row)
 this_buffer.append(first_line, row - 1)
 this_buffer[row] = text_line

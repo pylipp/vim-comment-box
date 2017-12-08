@@ -1,7 +1,11 @@
 """Module for creating boxes around text."""
 
 
-def put_text_in_box(line, text_width, comment_char='#'):
+def create_box_elements(line, text_width, comment_char=None):
+    """Create modified text line and wrapping lines acc. to given line, text
+    width and comment character.
+    """
+    comment_char = comment_char or '#'
     current_line_without_indent = line.strip()
     first_char_in_line = current_line_without_indent[0]
     first_char_col = line.find(first_char_in_line)
