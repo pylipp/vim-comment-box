@@ -5,7 +5,7 @@ from commentchar import get_comment_chars
 
 # TODO
 # - format long lines
-# - different alignment options
+# - different alignment options (center, ljust, rjust)
 
 
 def create_box_elements(lines, text_width=80, filetype=None):
