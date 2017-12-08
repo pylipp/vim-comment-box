@@ -14,6 +14,16 @@ class TestCreateBoxElements(unittest.TestCase):
         actual = create_box_elements(lines, text_width=13)
         self.assertListEqual(expected, actual)
 
+    def test_multiline_without_indent(self):
+        lines = ["test line", "more lines"]
+        expected = [
+            "#############",
+            "# test line #",
+            "# more lines#",
+        ]
+        actual = create_box_elements(lines, text_width=13)
+        self.assertListEqual(expected, actual)
+
     def test_line_with_indent(self):
         lines = ["    some code  "]
         expected = [
@@ -28,7 +38,7 @@ class TestBuffer(object):
     """Object that patches the behaviour of vim.buffer."""
 
     def __init__(self, *lines):
-        self._lines = {i: l for i, l in enumerate(lines, 1)}
+        self._lines = {i: l for i, l in enumerate(lines)}
 
     def __getitem__(self, index):
         return self._lines[index]
@@ -37,9 +47,10 @@ class TestBuffer(object):
         self._lines[index] = item
 
     def append(self, line, row):
-        if row in self._lines:
-            row +=1
-        self._lines[row] = line
+        index = row - 1
+        if index in self._lines:
+            index += 1
+        self._lines[index] = line
 
     def __eq__(self, other):
         return repr(self) == repr(other)
@@ -61,11 +72,22 @@ class TestPutTextInBox(unittest.TestCase):
 
     def test_line_with_indent(self):
         buffer = TestBuffer("  class Foo")
-        put_text_in_box(buffer, 1, 17, '-')
+        put_text_in_box(buffer, 1, 17, comment_char='-')
         expected = TestBuffer(
             "  ---------------",
             "  -  class Foo  -",
             "  ---------------",
+        )
+        self.assertEqual(buffer, expected)
+
+    def test_multiline_without_indent(self):
+        buffer = TestBuffer("all men must die", "valar morghulis")
+        put_text_in_box(buffer, 1, 20, count=2)
+        expected = TestBuffer(
+            "####################",
+            "# all men must die #",
+            "# valar morghulis  #",
+            "####################",
         )
         self.assertEqual(buffer, expected)
 
