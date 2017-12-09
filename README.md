@@ -1,5 +1,5 @@
-vim-commentary-boxed
-====================
+vim-comment-box
+===============
 Create filetype-specific boxed comments.
 
 Examples
@@ -69,7 +69,7 @@ Installation
 Use your favorite plugin manager, e.g. [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
-Plug 'pylipp/vim-commentary-boxed'
+Plug 'pylipp/vim-comment-box'
 ```
 
 After installation, create a custom keymapping in your `.vimrc` to call this plugin's only function. For example you could use the keymapping `<leader>b`:

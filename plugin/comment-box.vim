@@ -1,4 +1,4 @@
-" https://github.com/pylipp/vim-commentary-boxed
+" https://github.com/pylipp/vim-comment-box
 " Create filetype-specific comment box around current line
 
 let g:plugin_path = expand('<sfile>:p:h')

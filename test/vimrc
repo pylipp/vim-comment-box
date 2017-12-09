@@ -1,5 +1,5 @@
 set nocompatible
-set runtimepath^=~/.vim/bundle/vim-commentary-boxed
+set runtimepath^=~/.vim/bundle/vim-comment-box
 filetype plugin indent on
 syntax enable
 
