@@ -1,7 +1,6 @@
 vim-commentary-boxed
 ====================
-Extend [tpope's vim-commentary](https://github.com/tpope/vim-commentary) 
-plugin to create boxed comments. 
+Create filetype-specific boxed comments.
 
 Examples
 --------
@@ -15,27 +14,17 @@ let example_var_two = "two"
 
 ```
 
-with cursor on the second line will be changed to
+with cursor on the second line (and a textwidth of 31) will be changed to
 
 ```vim
 set relativenumber
-" ------------------------------------------------------------------------------
-" let example_var_one = "one"
-" ------------------------------------------------------------------------------
+"""""""""""""""""""""""""""""""
+" let example_var_one = "one" "
+"""""""""""""""""""""""""""""""
 let example_var_two = "two"
-
-```
-Calling `<leader>b` from the empty row on the bottom will result in 
-
-```vim
-set relativenumber
-let example_var_one = "one"
-let example_var_two = "two"
-" ------------------------------------------------------------------------------
-" 
-" ------------------------------------------------------------------------------
 ```
 The commenting string will automatically adapt to the respective buffer filetype.
+
 Note that you can give this plugin a count, too. Calling `4<leader>b` from line
 3 of
 
@@ -51,31 +40,26 @@ Note that you can give this plugin a count, too. Calling `4<leader>b` from line
     </body>
 </html> 
 ```
-will result in
+will result in (textwidth set to 80)
 
 ```html
 <!DOCTYPE html>
 <html>
-<!-- ----------------------------------------------------------------------- -->
-<!--     <head> -->
-<!--         <meta charset="UTF-8"> -->
-<!--         <title>Title of the document</title> -->
-<!--     </head> -->
-<!-- ----------------------------------------------------------------------- -->
+    <!------------------------------------------------------------------------->
+    <!--                                <head>                               -->
+    <!--                        <meta charset="UTF-8">                       -->
+    <!--                 <title>Title of the document</title>                -->
+    <!--                               </head>                               -->
+    <!------------------------------------------------------------------------->
     <body>
         Content of the document......
     </body>
 </html> 
 ```
 
-To delete a comment box, place the cursor on any line of the box and type
-`<leader>b`.
-
 Prerequisites
 -------------
 
-- You have installed the [vim-commentary](https://github.com/tpope/vim-commentary) 
-  plugin and it is active
 - Your Vim was compiled with `+python` option (check by opening Vim and running 
   `:echo has('python')` - result needs to be `1`)
 
@@ -85,7 +69,7 @@ Installation
 Use your favorite plugin manager, e.g. [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
-Plug 'cbaumhardt/vim-commentary-boxed'
+Plug 'pylipp/vim-commentary-boxed'
 ```
 
 After installation, create a custom keymapping in your `.vimrc` to call this plugin's only function. For example you could use the keymapping `<leader>b`:
@@ -94,7 +78,22 @@ After installation, create a custom keymapping in your `.vimrc` to call this plu
 nnoremap <leader>b :<C-u>call ToggleBox()<CR>
 ```
 
+Contributions
+-------------
+
+Missing support for your programming language of choice? Create an issue or a pull request :)
+
 License
 -------
 
-Copyright (c) cbaumhardt. Distributed under the same terms as Vim itself (see `:help license`).
+Original idea by: Copyright (c) cbaumhardt. Distributed under the same terms as Vim itself (see `:help license`).
+
+Fork by pylipp.
+
+TODO
+----
+
+- format long lines
+- different alignment options (center, ljust, rjust)
+- undo option?
+- test Python3 support

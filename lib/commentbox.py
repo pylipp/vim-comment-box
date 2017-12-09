@@ -3,11 +3,6 @@
 from commentchar import get_comment_chars
 
 
-# TODO
-# - format long lines
-# - different alignment options (center, ljust, rjust)
-
-
 def create_box_elements(lines, text_width=80, filetype=None):
     """Create modified text line and wrapping line acc. to given line, text
     width and filetype.
