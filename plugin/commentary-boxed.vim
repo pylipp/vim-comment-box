@@ -3,10 +3,10 @@
 
 let g:plugin_path = expand('<sfile>:p:h')
 
-function! ToggleBox()
+function! CommentBox() abort
   if has('python')
-    if !exists("*PythonToggleBox")
-      function PythonToggleBox()
+    if !exists("*PythonCommentBox")
+      function PythonCommentBox()
 python << EOF
 import vim
 import os
@@ -28,7 +28,7 @@ put_text_in_box(vim.current.buffer, row, text_width, count=count,
 EOF
       endfunction
     endif
-    call PythonToggleBox()
+    call PythonCommentBox()
   else
     echom 'This function will not work, no +python support detected'
   endif

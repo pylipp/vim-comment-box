@@ -1,1 +1,1 @@
-Run :call ToggleBox()<Enter>
+Run :call CommentBox()<Enter>

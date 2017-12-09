@@ -75,7 +75,7 @@ Plug 'pylipp/vim-commentary-boxed'
 After installation, create a custom keymapping in your `.vimrc` to call this plugin's only function. For example you could use the keymapping `<leader>b`:
 
 ```vim
-nnoremap <leader>b :<C-u>call ToggleBox()<CR>
+nnoremap <leader>b :<C-u>call CommentBox()<CR>
 ```
 
 Contributions
