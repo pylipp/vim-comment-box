@@ -41,6 +41,8 @@ SUPPORTED_COMMENT_CHARS = {
     "sh": PythonCommentChars,
     "html": HtmlCommentChars,
     "xml": HtmlCommentChars,
+    "make": PythonCommentChars,
+    "cmake": PythonCommentChars,
 }
 
 
