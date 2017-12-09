@@ -1,6 +1,7 @@
 import unittest
 
-from commentchar import PythonCommentChars, CCommentChars, get_comment_chars
+from commentchar import PythonCommentChars, CCommentChars, get_comment_chars,\
+    HtmlCommentChars
 
 
 class TestCommentChars(unittest.TestCase):
@@ -9,6 +10,9 @@ class TestCommentChars(unittest.TestCase):
 
     def test_c(self):
         self.assertEqual(CCommentChars().size, 4)
+
+    def test_html(self):
+        self.assertEqual(HtmlCommentChars().size, 7)
 
     def test_get_comment_char(self):
         chars = get_comment_chars("sh")

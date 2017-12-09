@@ -27,6 +27,11 @@ class VimCommentChars(CommentChars):
         super(VimCommentChars, self).__init__('"')
 
 
+class HtmlCommentChars(CommentChars):
+    def __init__(self):
+        super(HtmlCommentChars, self).__init__('<!--', '-->', '-')
+
+
 SUPPORTED_COMMENT_CHARS = {
     "python": PythonCommentChars,
     "c": CCommentChars,
@@ -34,6 +39,8 @@ SUPPORTED_COMMENT_CHARS = {
     "java": CCommentChars,
     "vim": VimCommentChars,
     "sh": PythonCommentChars,
+    "html": HtmlCommentChars,
+    "xml": HtmlCommentChars,
 }
 
 
