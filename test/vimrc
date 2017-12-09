@@ -1,0 +1,6 @@
+set nocompatible
+set runtimepath^=~/.vim/bundle/vim-commentary-boxed
+filetype plugin indent on
+syntax enable
+
+set textwidth=80
