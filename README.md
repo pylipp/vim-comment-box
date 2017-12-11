@@ -97,3 +97,5 @@ TODO
 - different alignment options (center, ljust, rjust)
 - undo option?
 - test Python3 support
+- handle error if filetype not supported
+- handle lines that are already commented
