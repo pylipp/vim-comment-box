@@ -98,5 +98,4 @@ TODO
 - undo option?
 - test Python3 support
 - handle error if filetype not supported
-- handle lines that are already commented
 - add optional space after text line comment char

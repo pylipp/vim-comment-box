@@ -32,9 +32,13 @@ def create_box_elements(lines, text_width=80, filetype=None):
 
     elements = [wrapping_line]
     for line in lines:
+        # construct line from indent, start comment char, actual text (any
+        # whitespace and surrounding comment chars are stripped), and ending
+        # comment char
         elements.append(
-            indent + comment_chars.start + line.strip().center(
-            text_line_length_without_comment_chars) + comment_chars.end)
+            indent + comment_chars.start + line.strip(
+                "".join([comment_chars.start, comment_chars.end, " "])).center(
+                    text_line_length_without_comment_chars) + comment_chars.end)
 
     return elements
 

@@ -51,6 +51,14 @@ class TestCreateBoxElements(unittest.TestCase):
         actual = create_box_elements(lines, text_width=7)
         self.assertListEqual(expected, actual)
 
+    def test_commented_line(self):
+        lines = [" # commented#"]
+        expected = [
+            " ###############",
+            " #  commented  #",
+        ]
+        actual = create_box_elements(lines, text_width=16)
+        self.assertListEqual(expected, actual)
 
 class TestBuffer(object):
     """Object that patches the behaviour of vim.buffer."""
