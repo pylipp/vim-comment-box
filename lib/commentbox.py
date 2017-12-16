@@ -12,8 +12,14 @@ def create_box_elements(lines, text_width=80, filetype=None):
 
     first_line = lines[0]
     current_line_without_indent = first_line.strip()
-    first_char_in_line = current_line_without_indent[0]
-    first_char_col = first_line.find(first_char_in_line)
+
+    try:
+        first_char_in_line = current_line_without_indent[0]
+        first_char_col = first_line.find(first_char_in_line)
+    except IndexError:
+        # line is empty or contains whitespace only
+        first_char_col = len(first_line)
+
     indent = first_line[:first_char_col]
 
     text_line_length = text_width - first_char_col
