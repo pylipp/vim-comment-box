@@ -23,7 +23,7 @@ set relativenumber
 """""""""""""""""""""""""""""""
 let example_var_two = "two"
 ```
-The commenting string will automatically adapt to the respective buffer filetype.
+The commenting string will automatically adapt to the respective buffer filetype. If no filetype specified or if the filetype is unknown to the plugin, it uses hash signs (`#`) to build the comment box.
 
 Note that you can give this plugin a count, too. Calling `4<leader>b` from line
 3 of
@@ -96,5 +96,4 @@ TODO
 - different alignment options (center, ljust, rjust)
 - undo option?
 - test Python3 support
-- handle error if filetype not supported
 - add optional space after text line comment char

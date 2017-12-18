@@ -47,4 +47,4 @@ SUPPORTED_COMMENT_CHARS = {
 
 
 def get_comment_chars(filetype):
-    return SUPPORTED_COMMENT_CHARS[filetype]()
+    return SUPPORTED_COMMENT_CHARS.get(filetype, PythonCommentChars)()

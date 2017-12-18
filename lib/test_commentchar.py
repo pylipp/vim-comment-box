@@ -18,8 +18,9 @@ class TestCommentChars(unittest.TestCase):
         chars = get_comment_chars("sh")
         self.assertEqual(chars.size, 2)
 
-    def test_get_comment_char_fail(self):
-        self.assertRaises(KeyError, get_comment_chars, "perl")
+    def test_get_comment_char_default(self):
+        self.assertEqual(PythonCommentChars,
+                         get_comment_chars("perl").__class__)
 
 
 if __name__ == "__main__":
