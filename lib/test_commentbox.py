@@ -1,6 +1,7 @@
 import unittest
 
-from commentbox import create_box_elements, put_text_in_box
+from commentchar import PythonCommentChars
+from commentbox import create_box_elements, put_text_in_box, preprocess_lines
 
 
 class TestCreateBoxElements(unittest.TestCase):
@@ -60,6 +61,17 @@ class TestCreateBoxElements(unittest.TestCase):
         actual = create_box_elements(lines, text_width=16)
         self.assertListEqual(expected, actual)
 
+    def test_long_line_wrapping(self):
+        lines = ["This is just a line that is too long"]
+        expected = [
+            "###############",
+            "# This is just#",
+            "# a line that #",
+            "# is too long #",
+        ]
+        actual = create_box_elements(lines, text_width=15)
+        self.assertListEqual(expected, actual)
+
 class TestBuffer(object):
     """Object that patches the behaviour of vim.buffer."""
 
@@ -116,6 +128,27 @@ class TestPutTextInBox(unittest.TestCase):
             "####################",
         )
         self.assertEqual(buffer, expected)
+
+
+class TestPreprocessLines(unittest.TestCase):
+
+    def test_long_line_with_indent(self):
+        lines = ["  # ho ho ho, and a bottle of rum"]
+        expected = [
+            "ho ho ho, and",
+            "a bottle of",
+            "rum",
+        ]
+        actual = preprocess_lines(
+            lines, comment_chars=PythonCommentChars(), width=13)
+        self.assertEqual(actual, expected)
+
+    def test_empty_lines(self):
+        lines = ["", "\t    "]
+        expected = ["    "]
+        actual = preprocess_lines(
+            lines, comment_chars=PythonCommentChars(), width=4)
+        self.assertEqual(actual, expected)
 
 
 if __name__ == "__main__":

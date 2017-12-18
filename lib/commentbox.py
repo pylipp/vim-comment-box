@@ -1,5 +1,7 @@
 """Module for creating boxes around text."""
 
+import textwrap
+
 from commentchar import get_comment_chars
 
 
@@ -30,14 +32,16 @@ def create_box_elements(lines, text_width=80, filetype=None):
         text_line_length_without_comment_chars * comment_chars.fill +\
         comment_chars.end
 
+    preprocessed_lines = preprocess_lines(
+        lines, comment_chars=comment_chars,
+        width=text_line_length_without_comment_chars)
+
     elements = [wrapping_line]
-    for line in lines:
-        # construct line from indent, start comment char, actual text (any
-        # whitespace and surrounding comment chars are stripped), and ending
-        # comment char
+    for line in preprocessed_lines:
+        # construct line from indent, start comment char, actual text (aligned)
+        # and ending comment char
         elements.append(
-            indent + comment_chars.start + line.strip(
-                "".join([comment_chars.start, comment_chars.end, " "])).center(
+            indent + comment_chars.start + line.center(
                     text_line_length_without_comment_chars) + comment_chars.end)
 
     return elements
@@ -55,3 +59,20 @@ def put_text_in_box(buffer, row, text_width, count=1, filetype=None):
     wrapping_line = elements[0]
     buffer.append(wrapping_line, row - 1)
     buffer.append(wrapping_line, row + count)
+
+def preprocess_lines(lines, comment_chars=None, width=None):
+    """Strip whitespace and comment chars from the given lines, concatenate them
+    and format them to fit the given width. All-whitespace lines are dropped.
+    """
+    stripped_lines = []
+    for line in lines:
+        stripped_lines.append(line.strip(
+                "".join([comment_chars.start, comment_chars.end, " "])))
+
+    preprocessed_lines = textwrap.wrap(" ".join(stripped_lines), width=width)
+    if not preprocessed_lines:
+        # textwrap.wrap() returns an empty list if given a whitespace-only
+        # string. Hence, create empty line of full width
+        preprocessed_lines = [width * " "]
+
+    return preprocessed_lines

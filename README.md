@@ -93,7 +93,6 @@ Fork by pylipp.
 TODO
 ----
 
-- format long lines
 - different alignment options (center, ljust, rjust)
 - undo option?
 - test Python3 support
