@@ -3,4 +3,5 @@ set runtimepath^=~/.vim/bundle/vim-comment-box
 filetype plugin indent on
 syntax enable
 
+set ruler
 set textwidth=80
