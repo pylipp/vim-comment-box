@@ -1,1 +1,4 @@
 Run :call CommentBox()<Enter>
+
+I am very long line, way longer than the text width and I think I will be reformatted by the plugin
+I am a test line
