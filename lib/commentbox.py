@@ -54,11 +54,14 @@ def put_text_in_box(buffer, row, text_width, count=1, filetype=None):
         text_width=text_width, filetype=filetype)
 
     for i, line in enumerate(elements[1:]):
-        buffer[row + i - 1] = line
+        if i < count:
+            buffer[row + i - 1] = line
+        else:
+            buffer.append(line, row + i)
 
     wrapping_line = elements[0]
     buffer.append(wrapping_line, row - 1)
-    buffer.append(wrapping_line, row + count)
+    buffer.append(wrapping_line, row + len(elements[1:]))
 
 def preprocess_lines(lines, comment_chars=None, width=None):
     """Strip whitespace and comment chars from the given lines, concatenate them

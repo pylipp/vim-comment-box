@@ -129,6 +129,18 @@ class TestPutTextInBox(unittest.TestCase):
         )
         self.assertEqual(buffer, expected)
 
+    def test_long_line_wrapping(self):
+        buffer = TestBuffer("I am a long line that will be wrapped", "I remain")
+        put_text_in_box(buffer, 1, 20)
+        expected = TestBuffer(
+            "####################",
+            "# I am a long line #",
+            "#   that will be   #",
+            "#     wrapped      #",
+            "####################",
+            "I remain",
+        )
+        self.assertEqual(buffer, expected)
 
 class TestPreprocessLines(unittest.TestCase):
 
