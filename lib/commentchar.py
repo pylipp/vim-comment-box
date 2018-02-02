@@ -32,6 +32,11 @@ class HtmlCommentChars(CommentChars):
         super(HtmlCommentChars, self).__init__('<!--', '-->', '-')
 
 
+class TexCommentChars(CommentChars):
+    def __init__(self):
+        super(TexCommentChars, self).__init__('%', fill='-')
+
+
 SUPPORTED_COMMENT_CHARS = {
     "python": PythonCommentChars,
     "c": CCommentChars,
@@ -43,6 +48,7 @@ SUPPORTED_COMMENT_CHARS = {
     "xml": HtmlCommentChars,
     "make": PythonCommentChars,
     "cmake": PythonCommentChars,
+    "tex": TexCommentChars,
 }
 
 
